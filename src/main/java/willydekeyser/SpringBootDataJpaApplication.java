@@ -17,7 +17,7 @@ public class SpringBootDataJpaApplication {
 		SpringApplication.run(SpringBootDataJpaApplication.class, args);
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner commandLineRunner(MemberRepository memberRepository) {
 		return args -> {
 			System.err.println("\n\nStart Run CommandLineRunner!\n\n");
