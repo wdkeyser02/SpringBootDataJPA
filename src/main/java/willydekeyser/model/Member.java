@@ -1,5 +1,7 @@
 package willydekeyser.model;
 
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
 import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
@@ -8,7 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
-import static jakarta.persistence.GenerationType.SEQUENCE;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -74,10 +75,11 @@ public class Member {
 	@OneToOne(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
-			fetch = FetchType.EAGER)
+			fetch = FetchType.LAZY)
 	@JoinColumn(
 			name = "address_id",
 			referencedColumnName = "id",
 			foreignKey = @ForeignKey(name="Member_Address_FK"))
 	private Address address;
+	
 }
