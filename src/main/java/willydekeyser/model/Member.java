@@ -75,7 +75,7 @@ public class Member {
 	@OneToOne(
 			cascade = CascadeType.ALL,
 			orphanRemoval = true,
-			fetch = FetchType.LAZY)
+			fetch = FetchType.EAGER)
 	@JoinColumn(
 			name = "address_id",
 			referencedColumnName = "id",

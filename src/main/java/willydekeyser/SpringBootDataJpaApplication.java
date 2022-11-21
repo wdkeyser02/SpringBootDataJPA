@@ -1,7 +1,6 @@
 package willydekeyser;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -71,14 +70,13 @@ public class SpringBootDataJpaApplication {
 					.address(address)
 					.build();
 			memberRepository.save(member);
-			memberRepository.findAll().forEach(ret -> {System.err.println(ret.getFirstName() + " " + ret.getLastName());});
-			
 			System.err.println("\nSave Member & Address =============================================================\n");
-			List<Member> lijst = memberRepository.findAll();
 			
-			lijst.stream().forEach(ret -> {System.err.println(ret.getFirstName() + " " + ret.getLastName());});
+			memberRepository.findAll().forEach(ret -> {System.err.println(ret.getId() + " " + ret.getFirstName() + " " + 
+			ret.getLastName() + " " + ret.getEmail());});
 			
-			System.err.println("\nGet Member list =============================================================\n");
+			System.err.println("\nFind All Member & Address =============================================================\n");
+			
 			address = Address.builder()
 					.street("Kerkstraat")
 					.number("125")
@@ -94,7 +92,16 @@ public class SpringBootDataJpaApplication {
 					.address(address)
 					.build();
 			memberRepository.save(member);
-			addressRepository.findAll().forEach(ret -> {System.err.println(ret.getStreet() + " " + ret.getNumber());});
+			
+			//memberRepository.findAll().forEach(ret -> {System.err.println(ret.getFirstName() + " " + 
+			//		ret.getLastName() + " " + ret.getEmail());});
+					
+			memberRepository.findAll().forEach(System.err::println);
+			
+			System.err.println("\nFindAll Member & Address =============================================================\n");
+					
+			//addressRepository.findAll().forEach(ret -> {System.err.println(ret.getId() + " " + ret.getStreet() + " " + ret.getNumber());});
+			addressRepository.findAll().forEach(System.err::println);
 			
 			System.err.println("\nSave Member & Address =============================================================\n");
 			address = Address.builder()
@@ -113,24 +120,36 @@ public class SpringBootDataJpaApplication {
 					.address(address)
 					.build();
 			memberRepository.save(member);
-			memberRepository.findAll().forEach(ret -> {System.err.println(ret.getFirstName() + " " + ret.getLastName());});
+			//memberRepository.findAll().forEach(ret -> {System.err.println(ret.getId() + " " + ret.getFirstName() + " " + ret.getLastName());});
+			memberRepository.findAll().forEach(System.err::println);
 			
 			System.err.println("\nUpdate Member with id = 1 =============================================================\n");
 			
-			memberRepository.findByEmail("test@gmail.com").ifPresent(ret -> {
-				System.err.println(ret.getFirstName() + " " + ret.getLastName() + " " + ret.getAddress().getId());});
+			//memberRepository.findByEmail("test@gmail.com").ifPresent(ret -> {
+			//	System.err.println(ret.getId() + " " + ret.getFirstName() + " " + ret.getLastName() + " " + ret.getAddress().getId());});
+			
+			memberRepository.findByEmail("test@gmail.com").ifPresent(System.err::println);
+			
 			System.err.println("\nMember findByEmail =============================================================\n");
 			
-			memberRepository.findAllByLastName("De Keyser").get().forEach(ret -> {
-				System.err.println(ret.getFirstName() + " " + ret.getLastName() + " " + ret.getAddress().getId());});
+			//memberRepository.findAllByLastName("De Keyser").get().forEach(ret -> {
+			//	System.err.println(ret.getId() + " " + ret.getFirstName() + " " + ret.getLastName() + " " + ret.getAddress().getId());});
+			
+			memberRepository.findAllByLastName("De Keyser").get().forEach(System.err::println);
 			
 			System.err.println("\nMember findByLastname ==============================================\n");
 			
-			memberRepository.findById(1L).ifPresent(ret -> {System.err.println(ret.getFirstName() + " " + ret.getLastName() + " " + ret.getAddress().getId());}
-					);
+			//memberRepository.findById(1L).ifPresent(ret -> {System.err.println(ret.getId() + " " + 
+			//ret.getFirstName() + " " + ret.getLastName() + " " + ret.getAddress().getId());});
+			
+			memberRepository.findById(1L).ifPresent(System.err::println);
+			
 			System.err.println("\nMember findById ===========================================================\n");
 			
-			addressRepository.findById(5L).ifPresent(ret -> {System.err.println(ret.getStreet());});
+			//addressRepository.findById(5L).ifPresent(ret -> {System.err.println(ret.getId() + " " + ret.getStreet() + " " + 
+			//ret.getNumber() + " " + ret.getZipCode() + " " + ret.getCity());});
+			
+			addressRepository.findById(5L).ifPresent(System.err::println);
 			
 			System.err.println("\nAddress findById ===========================================================\n");
 			System.err.println("\n\nEND Run CommandLineRunner!\n\n");
