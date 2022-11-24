@@ -158,6 +158,7 @@ public class SpringBootDataJpaApplication {
 			addressRepository.findById(5L).ifPresent(ret -> System.err.println(ret.getId() + " " + ret.getStreet() + " " + 
 					ret.getZipCode() + " " + ret.getCity() + " " + ret.getPhoneNumber() + " " + ret.getMember().getId() + " " + 
 							ret.getMember().getFirstName() + " " + ret.getMember().getLastName() + " " + ret.getMember().getEmail() + " " + ret.getMember().getBirthday()));
+			
 			System.err.println("\nAddress findById ===========================================================\n");
 			System.err.println("\n\nEND Run CommandLineRunner!\n\n");
 		};
