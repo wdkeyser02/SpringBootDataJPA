@@ -58,7 +58,7 @@ public class SpringBootDataJpaApplication {
 			
 			System.err.println("\nSave Member & Books =============================================================\n");
 			
-			memberRepository.findAll().forEach(ret -> {
+			memberRepository.findById(1L).ifPresent(ret -> {
 				List<Book> books = bookRepository.findAllByMemberId(ret.getId());
 				System.err.print("\n\n" + ret.getId() + " " + ret.getFirstName() + " " + ret.getLastName() + " " + ret.getEmail());
 				System.err.println(" - " + ret.getAddress().getId() + " " + ret.getAddress().getStreet() + " " + ret.getAddress().getNumber() + " " + 
