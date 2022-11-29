@@ -3,6 +3,8 @@ package willydekeyser.model;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,6 +14,7 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -81,5 +84,28 @@ public class Member {
 			referencedColumnName = "id",
 			foreignKey = @ForeignKey(name="Member_Address_FK"))
 	private Address address;
+	
+	@OneToMany(mappedBy = "member",
+			orphanRemoval = true,
+			cascade = CascadeType.ALL,
+			fetch = FetchType.EAGER
+			)
+	@Builder.Default
+	private List<Book> books = new ArrayList<>();
+	
+	public void addBook(Book book) {
+		if (!this.books.contains(book) || this.books.isEmpty()) {
+			this.books.add(book);
+			book.setMember(this);
+		}		
+	}
+	
+	public void removeBook(Book book) {
+		if (this.books.contains(book)) {
+			this.books.remove(book);
+			book.setMember(null);
+		}
+		
+	}
 	
 }
