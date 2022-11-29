@@ -88,7 +88,7 @@ public class Member {
 	@OneToMany(mappedBy = "member",
 			orphanRemoval = true,
 			cascade = CascadeType.ALL,
-			fetch = FetchType.EAGER
+			fetch = FetchType.LAZY
 			)
 	@Builder.Default
 	private List<Book> books = new ArrayList<>();

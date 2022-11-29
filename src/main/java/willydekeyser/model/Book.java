@@ -50,7 +50,7 @@ public class Book {
 	private LocalDateTime createdAt;
 	
 	@ManyToOne(
-			fetch = FetchType.EAGER)
+			fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id",
 				nullable = false,
 				referencedColumnName = "id",

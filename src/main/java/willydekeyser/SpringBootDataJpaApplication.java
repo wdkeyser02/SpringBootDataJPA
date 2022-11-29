@@ -2,6 +2,7 @@ package willydekeyser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,7 @@ import willydekeyser.model.Address;
 import willydekeyser.model.Book;
 import willydekeyser.model.Member;
 import willydekeyser.repository.AddressRepository;
+import willydekeyser.repository.BookRepository;
 import willydekeyser.repository.MemberRepository;
 
 @SpringBootApplication
@@ -22,7 +24,7 @@ public class SpringBootDataJpaApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(MemberRepository memberRepository, AddressRepository addressRepository) {
+	CommandLineRunner commandLineRunner(MemberRepository memberRepository, AddressRepository addressRepository, BookRepository bookRepository) {
 		return args -> {
 			System.err.println("\n\nStart Run CommandLineRunner!\n\n");
 			Address address = Address.builder()
@@ -57,11 +59,26 @@ public class SpringBootDataJpaApplication {
 			System.err.println("\nSave Member & Books =============================================================\n");
 			
 			memberRepository.findAll().forEach(ret -> {
+				List<Book> books = bookRepository.findAllByMemberId(ret.getId());
 				System.err.print("\n\n" + ret.getId() + " " + ret.getFirstName() + " " + ret.getLastName() + " " + ret.getEmail());
 				System.err.println(" - " + ret.getAddress().getId() + " " + ret.getAddress().getStreet() + " " + ret.getAddress().getNumber() + " " + 
 					ret.getAddress().getZipCode() + " " + ret.getAddress().getCity() + " " + ret.getAddress().getPhoneNumber());		
-				ret.getBooks().forEach(ret_book -> System.err.println("\t" + ret_book.getId() + " " + ret_book.getBookname() + " " + ret_book.getCreatedAt()));
+				books.forEach(ret_book -> System.err.println("\t" + ret_book.getId() + " " + ret_book.getBookname() + " " + ret_book.getCreatedAt()));
 				});
+			
+			System.err.println("\n=============================================================\n");
+			
+			bookRepository.findAll().forEach(ret -> {
+				Member members = memberRepository.findById(ret.getMember().getId()).get();
+				System.err.println(ret.getId()  + " " + ret.getBookname());
+				System.err.println("\t" + members.getId() + " - " + members.getFirstName() + " " + members.getLastName() + "\n\n");
+				
+			
+			
+			});
+			
+			
+			
 			
 			System.err.println("\n\nEND Run CommandLineRunner!\n\n");
 		};
