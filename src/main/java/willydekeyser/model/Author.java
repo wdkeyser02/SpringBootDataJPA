@@ -17,6 +17,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity(name = "Author")
-@Table(name = "author")
+@Table(name = "author",
+uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "author_name" },
+				name = "author_authorname_unique")})
 @Builder
 @Data
 @ToString(exclude = "books")
@@ -47,6 +51,7 @@ public class Author {
 	
 	@Column(name = "author_name",
 			nullable = false,
+			unique = true,
 			columnDefinition = "TEXT")
 	private String authorName;
 	

@@ -96,7 +96,7 @@ public class Member {
 	private List<Book> books = new ArrayList<>();
 	
 	public void addBook(Book book) {
-		if (!this.books.contains(book) || this.books.isEmpty()) {
+		if (!this.books.contains(book)) {
 			this.books.add(book);
 			book.setMember(this);
 		}		

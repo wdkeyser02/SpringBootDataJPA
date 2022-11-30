@@ -57,6 +57,19 @@ public class SpringBootDataJpaApplication {
 					.bookName("Learning Spring Boot")
 					.createdAt(LocalDateTime.now())
 					.build();
+			Book book4 = Book.builder()
+					.bookName("Spring Boot")
+					.createdAt(LocalDateTime.now())
+					.build();
+			Book book5 = Book.builder()
+					.bookName("Mastering Spring")
+					.createdAt(LocalDateTime.now())
+					.build();
+			Book book6 = Book.builder()
+					.bookName("Learning Spring")
+					.createdAt(LocalDateTime.now())
+					.build();
+			
 			
 			Author author1 = Author.builder()
 					.authorName("Willy de Keyser")
@@ -73,12 +86,21 @@ public class SpringBootDataJpaApplication {
 			
 			book1.addAuthor(author1);
 			book1.addAuthor(author2);
+			book2.addAuthor(author2);
 			book2.addAuthor(author3);
-			book3.addAuthor(author4);
+			book2.addAuthor(author4);
+			book3.addAuthor(author1);
+			book4.addAuthor(author1);
+			book5.addAuthor(author1);
+			book6.addAuthor(author1);
+			book6.addAuthor(author4);
 			
 			member.addBook(book1);
 			member.addBook(book2);
 			member.addBook(book3);
+			member.addBook(book4);
+			member.addBook(book5);
+			member.addBook(book6);
 			
 			memberRepository.save(member);
 	
@@ -90,11 +112,9 @@ public class SpringBootDataJpaApplication {
 							System.out.println("\t" + book);
 							book.getAuthors().forEach(
 								author -> {
-									System.err.println("\t\t" + author);}
+									System.err.println("\t\t" + book + "\t\t" + author);}
 								);});
 				});
-			
-			
 			System.err.println("\n\nEND Run CommandLineRunner!\n\n");
 		};
 	}
