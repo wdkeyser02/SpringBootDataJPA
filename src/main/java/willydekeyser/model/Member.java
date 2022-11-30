@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity(name = "Member")
 @Table(
@@ -33,6 +34,7 @@ import lombok.NoArgsConstructor;
 		)
 @Builder
 @Data
+@ToString(exclude = {"address", "books"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
@@ -88,7 +90,7 @@ public class Member {
 	@OneToMany(mappedBy = "member",
 			orphanRemoval = true,
 			cascade = CascadeType.ALL,
-			fetch = FetchType.LAZY
+			fetch = FetchType.EAGER
 			)
 	@Builder.Default
 	private List<Book> books = new ArrayList<>();

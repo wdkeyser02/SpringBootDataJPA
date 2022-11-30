@@ -14,11 +14,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity(name = "Member_Address")
 @Table(name = "member_address")
 @Builder
 @Data
+@ToString(exclude = "member")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
