@@ -14,6 +14,7 @@ import willydekeyser.model.Author;
 import willydekeyser.model.Book;
 import willydekeyser.model.Member;
 import willydekeyser.repository.AddressRepository;
+import willydekeyser.repository.AuthorRepository;
 import willydekeyser.repository.BookRepository;
 import willydekeyser.repository.MemberRepository;
 
@@ -25,7 +26,7 @@ public class SpringBootDataJpaApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(MemberRepository memberRepository, AddressRepository addressRepository, BookRepository bookRepository) {
+	CommandLineRunner commandLineRunner(AuthorRepository authorRepository, MemberRepository memberRepository, AddressRepository addressRepository, BookRepository bookRepository) {
 		return args -> {
 			System.err.println("\n\nStart Run CommandLineRunner!\n\n");
 			
@@ -72,10 +73,10 @@ public class SpringBootDataJpaApplication {
 			
 			
 			Author author1 = Author.builder()
-					.authorName("Willy de Keyser")
+					.authorName("Willy De Keyser")
 					.build();
 			Author author2 = Author.builder()
-					.authorName("Ken de Keyser")
+					.authorName("Ken De Keyser")
 					.build();
 			Author author3 = Author.builder()
 					.authorName("Bill Gates")
@@ -103,7 +104,34 @@ public class SpringBootDataJpaApplication {
 			member.addBook(book6);
 			
 			memberRepository.save(member);
-	
+			//Author author10 = Author.builder()
+			//		//.id(1L)
+			//		.authorName("Willy De Keyser")
+			//		.build();
+			Author author10 = authorRepository.findById(1L).get();
+			Book book10 = Book.builder()
+					.bookName("Action")
+					.createdAt(LocalDateTime.now())
+					.build();
+			book10.addAuthor(author10);
+			System.out.println(author10);
+			System.out.println(book10 + " " + book10.getAuthors());
+			member.addBook(book10);
+			
+			try {
+				memberRepository.save(member);
+			} catch (Exception e) {
+				System.err.println("\n\nFout " + e.getMessage());
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			memberRepository.findById(1L).ifPresent(return_member -> {
 				List<Book> books = bookRepository.findAllByMemberId(return_member.getId());
 				System.err.println(return_member);

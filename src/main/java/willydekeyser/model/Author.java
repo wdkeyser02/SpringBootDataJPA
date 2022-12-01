@@ -4,6 +4,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -51,7 +52,6 @@ public class Author {
 	
 	@Column(name = "author_name",
 			nullable = false,
-			unique = true,
 			columnDefinition = "TEXT")
 	private String authorName;
 	
@@ -68,4 +68,28 @@ public class Author {
 			)
 	@Builder.Default
 	private List<Book> books = new ArrayList<>();
+
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Author other = (Author) obj;
+//		return true;
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(authorName);
+//	}
+	
+	
+	
+	
+	
+	
+	
 }

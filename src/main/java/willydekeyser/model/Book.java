@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -37,6 +38,7 @@ uniqueConstraints = {
 @AllArgsConstructor
 public class Book {
 
+	@SuppressWarnings("removal")
 	@Id
 	@SequenceGenerator(
 			name = "book_sequence",
@@ -48,11 +50,11 @@ public class Book {
 	@Column(
 			name = "id",
 			updatable = false)
+	@org.hibernate.annotations.ForeignKey(name = "testen")
 	private Long id;
 	
 	@Column(name = "book_name",
 			nullable = false,
-			unique = true,
 			columnDefinition = "TEXT")
 	private String bookName;
 	
@@ -72,7 +74,7 @@ public class Book {
 	private Member member;
 	
 	@ManyToMany(mappedBy = "books", 
-			cascade = CascadeType.ALL,
+			cascade = CascadeType.PERSIST,
 			fetch = FetchType.EAGER)
 	@Builder.Default
 	private List<Author> authors = new ArrayList<>();
@@ -87,4 +89,23 @@ public class Book {
 		authors.remove(author);
 		author.getBooks().remove(this);
 	}
+
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Book other = (Book) obj;
+//		return true;
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(bookName);
+//	}
+	
+	
 }
