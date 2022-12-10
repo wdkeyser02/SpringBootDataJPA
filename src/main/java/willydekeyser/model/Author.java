@@ -4,7 +4,6 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
